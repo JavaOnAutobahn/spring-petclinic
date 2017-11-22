@@ -15,7 +15,9 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -44,6 +46,8 @@ public class OwnerController {
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final ClinicService clinicService;
+
+    private static int ownersIndexes;
 
 
     @Autowired
@@ -98,9 +102,16 @@ public class OwnerController {
             owner = results.iterator().next();
             return "redirect:/owners/" + owner.getId();
         } else {
+
             // multiple owners found
             model.put("selections", results);
-            return "owners/ownersList";
+            // BUG-1: index could be used for numbering all returned owners entries
+            List<Integer> indexes = new ArrayList<>();
+            for(ownersIndexes = 0; ownersIndexes < results.size(); ownersIndexes++){
+                indexes.add(ownersIndexes);
+            }
+            model.put("indexes", ownersIndexes);
+            return "ownersb/ownersList";
         }
     }
 
