@@ -1,0 +1,20 @@
+[[codeanalysis:Default]]
+[role=group,includesConcepts="codeanalysis:FindBugsCodeConnection"]
+== Code Analysis
+
+=== Concepts
+
+[[codeanalysis:FindBugsCodeConnection]]
+[source,cypher,role=concept]
+.Creates a relationship HAS_BUG between CLASS labeled nodes and BUGINSTANCE labeled nodes with same FQN.
+----
+MATCH
+    (c:Class), (s:SourceLine)--(b:BugInstance)
+WHERE
+    c.fqn=s.fqn
+CREATE UNIQUE
+    (c)-[:HAS_BUG]->(b)
+RETURN
+    count(b) as FindBugsInstances
+----
+

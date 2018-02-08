@@ -416,9 +416,9 @@
                         <configuration>
                             <failOnSeverity>CRITICAL</failOnSeverity>
                             <warnOnSeverity>MINOR</warnOnSeverity>
-                            <concepts>
+                            <!--<concepts>
                                 <concept>findbugs:ClassHasBugs</concept>
-                            </concepts>
+                            </concepts>-->
                             <scanIncludes>
                                 <scanInclude>
                                     <path>${project.basedir}/.git</path>
