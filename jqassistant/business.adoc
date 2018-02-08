@@ -1,11 +1,12 @@
 [[business:Default]]
-[role=group,includesConcepts="business:Subdomain,business:SubdomainDependency"]
+[role=group,includesConcepts="business:Subdomain,business:Crossfunctional,business:BusinessDependency"]
 == Business
 
 This section describes the application from the business' perspective.
 
 === Concepts
 
+==== Subdomains
 The Spring PetClinic application consists of several business sub domains that can be identified by naming conventions.
 
 [[business:Subdomain]]
@@ -22,7 +23,7 @@ UNWIND [
     { name: "Visit" }
 ]
 AS properties
-MERGE (s:Subdomain{name:properties.name})
+MERGE (s:Business:Subdomain{name:properties.name})
 WITH s
     MATCH (t:Type)
         WHERE t.name CONTAINS s.name
@@ -30,15 +31,29 @@ WITH s
 RETURN s.name as Subdomain, COUNT(t) as Types
 ----
 
+==== Crossfunctional Aspects
+Some types are not specific to a subdomain, but are there for crossfunctional aspects.
+[[business:Crossfunctional]]
+.Mark all non-subdomain types for the current Project with a Crossfunctional label.
+[source,cypher,role=concept]
+----
+MATCH (t:Type)<-[:CONTAINS*]-(:Project)
+WHERE NOT (t)-[:BELONGS_TO]->(:Business:Subdomain)
+MERGE (s:Business:Crossfunctional {name: "crossfunctional"})
+MERGE (s)<-[:BELONGS_TO]-(t)
+RETURN s.name as Crossfunctional, count(t) as Types
+----
+
+
 There are dependencies between business sub domains.
 
-[[business:SubdomainDependency]]
+[[business:BusinessDependency]]
 .Creates DEPENDS_ON relations between two subdomains if there are Java type dependencies between them.
-[source,cypher,role=concept,requiresConcepts="business:Subdomain"]
+[source,cypher,role=concept,requiresConcepts="business:Subdomain, business:Crossfunctional"]
 ----
 MATCH
-  (t1:Type)-[:BELONGS_TO]->(s1:Subdomain),
-  (t2:Type)-[:BELONGS_TO]->(s2:Subdomain),
+  (t1:Type)-[:BELONGS_TO]->(s1:Business),
+  (t2:Type)-[:BELONGS_TO]->(s2:Business),
   (t1)-[d:DEPENDS_ON]->(t2)
 WHERE
   s1 <> s2
@@ -49,7 +64,7 @@ MERGE
 SET
   d.weight = weight
 RETURN
-  s1.name as Subdomain, collect(s2.name) as Dependencies
+  s1.name as Business, collect(s2.name) as Dependencies
 ORDER BY
-  Subdomain
+  Business
 ----
