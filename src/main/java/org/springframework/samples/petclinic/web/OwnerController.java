@@ -111,7 +111,7 @@ public class OwnerController {
                 indexes.add(ownersIndexes);
             }
             model.put("indexes", ownersIndexes);
-            return "ownersb/ownersList";
+            return "owners/ownersList";
         }
     }
 
