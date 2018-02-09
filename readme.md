@@ -14,9 +14,11 @@ see https://github.com/buschmais/spring-petclinic for the forked version of the 
 * To produce nicely looking diagrams, install GraphViz ([download](https://www.graphviz.org/download/))
 
 # Installing and getting to know the sample application
-Hint: Preferable, you use the Git bash command line or any Unix-like shell for these tasks.
+_Hint: Preferable, you use the Git bash command line or any Unix-like shell for these tasks._
 
-For our use case, we take an sample application of the Spring Framework. Basica
+For our use case, we take the sample application `petclinic` of the Spring Framework to demonstrate the usage if jQAssistant and Neo4J. The creator of jQAssistant already put almost everything in place. This version just adds some bad code to have something to analyze.
+
+The sample application itself is a simple demo for organizing visits of pet owners to vets in a clinic.
 
 ## Understanding the Spring Petclinic application with a few diagrams
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here on SpeakerDeck</a>
