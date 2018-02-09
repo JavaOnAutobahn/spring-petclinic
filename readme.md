@@ -41,7 +41,7 @@ To shutdown the server, press `Ctrl` + `X` on the command line.
 
 ## Running jQAssistant / Neo4J locally
 
-After shuting down the web application server, you can start jQAssistant with this Maven:
+After shuting down the web application server, you can start jQAssistant with this Maven command:
 ```
 	./mvnw jqassistant:server
 ```
