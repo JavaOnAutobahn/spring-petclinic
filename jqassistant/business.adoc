@@ -1,5 +1,5 @@
 [[business:Default]]
-[role=group,includesConcepts="business:Subdomain,business:Crossfunctional,business:BusinessDependency"]
+[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency"]
 == Business
 
 This section describes the application from the business' perspective.
@@ -7,7 +7,7 @@ This section describes the application from the business' perspective.
 === Concepts
 
 ==== Subdomains
-The Spring PetClinic application consists of several business sub domains that can be identified by naming conventions.
+The application consists of several business subdomains that can be identified by naming conventions.
 
 [[business:Subdomain]]
 .Creates predefined Subdomain nodes and connects them to all Type nodes via naming conventions.
@@ -25,7 +25,7 @@ UNWIND [
 AS properties
 MERGE (s:Business:Subdomain{name:properties.name})
 WITH s
-    MATCH (t:Type)
+    MATCH (t:Type)<-[:CONTAINS*]-(:Project)
         WHERE t.name CONTAINS s.name
     MERGE (t)-[:BELONGS_TO]->(s)
 RETURN s.name as Subdomain, COUNT(t) as Types
@@ -33,27 +33,28 @@ RETURN s.name as Subdomain, COUNT(t) as Types
 
 ==== Crossfunctional Aspects
 Some types are not specific to a subdomain, but are there for crossfunctional aspects.
-[[business:Crossfunctional]]
-.Mark all non-subdomain types for the current Project with a Crossfunctional label.
-[source,cypher,role=concept]
+[[business:SubdomainCrossfunctional]]
+.Mark all types for the current Project that are crossfunctional.
+[source,cypher,role=concept,requiresConcepts="business:Subdomain"]
 ----
 MATCH (t:Type)<-[:CONTAINS*]-(:Project)
 WHERE NOT (t)-[:BELONGS_TO]->(:Business:Subdomain)
-MERGE (s:Business:Crossfunctional {name: "crossfunctional"})
+MERGE (s:Business:Subdomain {name: "crossfunctional"})
 MERGE (s)<-[:BELONGS_TO]-(t)
-RETURN s.name as Crossfunctional, count(t) as Types
+RETURN s.name as CrossfunctionalSubdomain, count(t) as Types
 ----
 
+==== Crossfunctional Aspects
 
 There are dependencies between business sub domains.
 
 [[business:BusinessDependency]]
 .Creates DEPENDS_ON relations between two subdomains if there are Java type dependencies between them.
-[source,cypher,role=concept,requiresConcepts="business:Subdomain, business:Crossfunctional"]
+[source,cypher,role=concept,requiresConcepts="business:SubdomainCrossfunctional"]
 ----
 MATCH
-  (t1:Type)-[:BELONGS_TO]->(s1:Business),
-  (t2:Type)-[:BELONGS_TO]->(s2:Business),
+  (t1:Type)-[:BELONGS_TO]->(s1:Business:Subdomain),
+  (t2:Type)-[:BELONGS_TO]->(s2:Business:Subdomain),
   (t1)-[d:DEPENDS_ON]->(t2)
 WHERE
   s1 <> s2
@@ -68,3 +69,47 @@ RETURN
 ORDER BY
   Business
 ----
+
+
+
+==== Technical Aspects
+
+The application consists of several business sub domains that can be identified by package naming conventions.
+
+[[business:TechnicalAspects]]
+.Creates information about technical aspects using package naming conventions.
+[source,cypher,role=concept]
+----
+MATCH (p:Package)-[:CONTAINS]->(t:Type)<-[:CONTAINS*]-(:Project)
+WITH t, p.name as packageName 
+MERGE (ta:Business:TechnicalAspect {name: packageName})
+MERGE (ta)<-[:IS_A]-(t)
+RETURN ta.name as TechnicalAspect, count(t) as Types
+----
+
+==== Dependencies between technical aspects
+
+There are dependencies between business technical aspects.
+
+[[business:TechnicalAspectsDependency]]
+.Creates DEPENDS_ON relations between two subdomains if there are Java type dependencies between them.
+[source,cypher,role=concept,requiresConcepts="business:TechnicalAspects"]
+----
+MATCH
+  (t1:Type)-[:IS_A]->(ta1:Business:TechnicalAspect),
+  (t2:Type)-[:IS_A]->(ta2:Business:TechnicalAspect),
+  (t1)-[d:DEPENDS_ON]->(t2)
+WHERE
+  ta1 <> ta2
+WITH
+  ta1, ta2, count(d) as weight
+MERGE
+  (ta1)-[d:DEPENDS_ON]->(ta2)
+SET
+  d.weight = weight
+RETURN
+  ta1.name as TechnicalAspect, collect(ta2.name) as Dependencies
+ORDER BY
+  TechnicalAspect
+----
+
