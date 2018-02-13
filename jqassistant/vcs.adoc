@@ -1,5 +1,5 @@
 [[vcs:Default]]
-[role=group,includesConstraints="vcs:BranchesMustBeSynchronized",includesConcepts="vcs:CurrentBranch"]
+[role=group,includesConstraints="vcs:BranchesMustBeSynchronized",includesConcepts="vcs:CurrentBranch,vcs:GitToJavaConnection"]
 == Version Control System
 
 The rules defined in this document refer to Git.
@@ -22,6 +22,19 @@ SET
 RETURN
   branch.name as CurrentBranch, length(p) as Offset
 ----
+
+[[vcs:GitToJavaConnection]]
+[source,cypher,role=concept]
+.Creates a relationship between a changed File and the Java Type.
+----
+MATCH (c:Git:Change)--(g:Git:File), (t:Java:Type)
+WITH g, t, c, "^.*" + REPLACE(t.fileName, ".class", ".java") + "$" as regexPath
+WHERE g.relativePath =~ regexPath
+CREATE UNIQUE
+    (t)-[change:HAS_CHANGE]->(c)
+RETURN COUNT(change) as Changes
+----
+
 
 === Constraints
 
@@ -53,4 +66,3 @@ WHERE
 RETURN
   branch.name as OutdatedBranch
 ----
-
