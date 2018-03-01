@@ -23,6 +23,8 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.util.BoundedContext;
+import org.springframework.samples.petclinic.util.MixedBoundedContexts;
 
 
 /**
@@ -30,12 +32,16 @@ import org.springframework.samples.petclinic.model.Visit;
  *
  * @author Michael Isvy
  */
+@BoundedContext("Clinic")
 public interface ClinicService {
 
+    @BoundedContext("PetKnowledgeBase")
     Collection<PetType> findPetTypes() throws DataAccessException;
 
+    @MixedBoundedContexts({"CustomerManagement", "VisitTracking"})
     Owner findOwnerById(int id) throws DataAccessException;
 
+    @BoundedContext("PatientManagement")
     Pet findPetById(int id) throws DataAccessException;
 
     void savePet(Pet pet) throws DataAccessException;
