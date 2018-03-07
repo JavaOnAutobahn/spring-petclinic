@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.util.BrokenSingleton;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -100,6 +101,10 @@ public class PetController {
 
     @RequestMapping(value = "/pets/{petId}/edit", method = RequestMethod.POST)
     public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, ModelMap model) {
+
+        String value = BrokenSingleton.getInstance().getSomeValue();
+        model.put("value", value);
+
         if (result.hasErrors()) {
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
@@ -108,6 +113,7 @@ public class PetController {
             this.clinicService.savePet(pet);
             return "redirect:/owners/{ownerId}";
         }
+
     }
 
 }
