@@ -1,5 +1,5 @@
 [[codeanalysis:Default]]
-[role=group,includesConcepts="codeanalysis:FindBugsCodeConnection"]
+[role=group,includesConcepts="codeanalysis:FindBugsCodeConnection,codeanalysis:TypeLastLineNumber"]
 == Code Analysis
 
 === Concepts
@@ -18,3 +18,16 @@ RETURN
     count(b) as FindBugsInstances
 ----
 
+
+[[codeanalysis:TypeLastLineNumber]]
+[source,cypher,role=concept]
+.Derives the last line number of a type from a method as proxy for lines of code.
+----
+MATCH
+    (t:Type)-[:DECLARES]->(m:Method)
+WITH t, MAX(m.lastLineNumber) as lastMethodLineNumber
+SET
+    t.lastMethodLineNumber = lastMethodLineNumber
+RETURN
+    count(t) as TypesProvidedWithLastLineNumber
+----
