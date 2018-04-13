@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.util;
 
+import org.springframework.samples.petclinic.architecture.TechnicalAspect;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@TechnicalAspect("PersistenceMechanism")
 public class RecursiveDbCallsExample {
 
     // just simulate bad dependency injection practices here with a static field...

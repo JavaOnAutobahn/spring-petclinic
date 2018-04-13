@@ -19,6 +19,7 @@ package org.springframework.samples.petclinic.util;
 import java.util.Collection;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.architecture.TechnicalAspect;
 import org.springframework.samples.petclinic.model.BaseEntity;
 
 /**
@@ -30,6 +31,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
  * @see org.springframework.samples.petclinic.model.BaseEntity
  * @since 29.10.2003
  */
+@TechnicalAspect("PersistenceMechanism")
 public abstract class EntityUtils {
 
     /**

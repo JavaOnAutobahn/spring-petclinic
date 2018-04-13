@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.util;
 
+import org.springframework.samples.petclinic.architecture.TechnicalAspect;
+
 /**
  * I load nothing, but this will take long!
  */
+@TechnicalAspect("PersistenceMechanism")
 public class Database {
 
     public SomeWeirdRecursiveDataStructure loadThing(long id) {

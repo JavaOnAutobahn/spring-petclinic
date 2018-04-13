@@ -21,6 +21,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
+import org.springframework.samples.petclinic.architecture.TechnicalAspect;
 import org.springframework.util.StopWatch;
 
 /**
@@ -36,6 +37,7 @@ import org.springframework.util.StopWatch;
  */
 @ManagedResource("petclinic:type=CallMonitor")
 @Aspect
+@TechnicalAspect("Monitoring")
 public class CallMonitoringAspect {
 
     private boolean enabled = true;
