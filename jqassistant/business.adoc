@@ -1,5 +1,5 @@
 [[business:Default]]
-[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency"]
+[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:SubdomainOverride,business:SubdomainFriction,business:TechnicalAspects,business:TechnicalAspectsDependency"]
 == Business
 
 This section describes the application from the business' perspective.
@@ -44,7 +44,7 @@ MERGE (s)<-[:BELONGS_TO]-(t)
 RETURN s.name as CrossfunctionalSubdomain, count(t) as Types
 ----
 
-==== Crossfunctional Aspects
+==== Subdomain Dependencies
 
 There are dependencies between business sub domains.
 
@@ -70,7 +70,37 @@ ORDER BY
   Business
 ----
 
+==== Subdomain Override
+Code can be mark in the application with @ActualSubdomain so signal that a class might be tagged wrongly by using the naming convention from above.
+[[business:SubdomainOverride]]
+.Find all annotation on types and change the relationship to subdomains accordingly.
+[source,cypher,role=concept,requiresConcepts="business:Subdomain"]
+----
+MATCH
+   (a:Artifact { name: "spring-petclinic"})-[:CONTAINS*]->
+      (t:Type)-[:ANNOTATED_BY]->(annotation:Annotation)-[:OF_TYPE]->
+         (annotationType:Type { name: "ActualSubdomain"}),
+            (annotation)-[:HAS]->(v:Value)
+OPTIONAL MATCH
+   (t)-[b:BELONGS_TO]->(wrong:Business:Subdomain)
+DELETE b
+MERGE (t)-[:BELONGS_NOT_TO]->(wrong)
+WITH t, v, wrong
+MATCH (s:Business:Subdomain {name: v.value})
+MERGE (t)-[:BELONGS_TO]->(s)
+RETURN DISTINCT t.name, s.name as newSubdomain, wrong.name as oldSubdomain
+----
 
+==== List wrongly associated classes
+
+[[business:SubdomainFriction]]
+.Finds and calculates the friction for wrongly named or placed types within subdomains.
+[source,cypher,role=concept,requiresConcepts="business:SubdomainOverride"]
+----
+MATCH (t:Type)-[ok:BELONGS_TO]->(s:Business:Subdomain)
+OPTIONAL MATCH (t)-[nok:BELONGS_NOT_TO]->(other:Business:Subdomain)
+RETURN s.name as Subdomain, COUNT(ok) as OK , COUNT(nok) as NOK, COUNT((nok)) / tofloat((COUNT(ok) + COUNT(nok))) as Friction
+----
 
 ==== Technical Aspects
 

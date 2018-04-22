@@ -25,7 +25,7 @@ import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.util.MixedBoundedContexts;
-import org.springframework.samples.petclinic.architecture.TechnicalAspect;
+import org.springframework.samples.petclinic.architecture.ActualTechnicalAspect;
 
 
 /**
@@ -43,7 +43,7 @@ public interface ClinicService {
     Owner findOwnerById(int id) throws DataAccessException;
 
     @BoundedContext("PatientManagement")
-    @TechnicalAspect("DataModel")
+    @ActualTechnicalAspect("DataModel")
     Pet findPetById(int id) throws DataAccessException;
 
     void savePet(Pet pet) throws DataAccessException;

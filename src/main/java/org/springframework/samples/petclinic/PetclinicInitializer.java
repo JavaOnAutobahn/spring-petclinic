@@ -18,8 +18,7 @@ package org.springframework.samples.petclinic;
 import com.github.dandelion.core.web.DandelionFilter;
 import com.github.dandelion.core.web.DandelionServlet;
 import com.github.dandelion.datatables.core.web.filter.DatatablesFilter;
-import org.springframework.util.Assert;
-import org.springframework.web.WebApplicationInitializer;
+import org.springframework.samples.petclinic.architecture.ActualSubdomain;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -41,6 +40,7 @@ import java.util.EnumSet;
  *
  * @author Antoine Rey
  */
+@ActualSubdomain("crossfunctional")
 public class PetclinicInitializer extends AbstractDispatcherServletInitializer {
 
     /**
