@@ -56,8 +56,6 @@ MATCH
   (t1:Type)-[:BELONGS_TO]->(s1:Business:Subdomain),
   (t2:Type)-[:BELONGS_TO]->(s2:Business:Subdomain),
   (t1)-[d:DEPENDS_ON]->(t2)
-WHERE
-  s1 <> s2
 WITH
   s1, s2, count(d) as weight
 MERGE
