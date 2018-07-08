@@ -1,0 +1,55 @@
+[[pattern:Default]]
+[role=group,includesConstraints="pattern:DataBaseObjectAsEntity"]
+== Patterns
+
+=== DataBaseObjectAsEntity
+
+[[pattern:DataBaseObjectAsEntity]]
+.DataBaseObject are those classes that represent the database tables as JPA Entities.
+[source,cypher,role=concept,requiresConcepts="jpa2:Entity"]
+----
+MATCH
+  (entity:Jpa:Entity)
+MERGE
+  (p:Pattern {
+    name: "DataBaseObject",
+    variant: "Entity"})
+MERGE
+  (entity)-[:REPRESENTS]->(p)
+RETURN
+  p.name as patternName, count(entity) as count
+----
+
+[[pattern:DataBaseObjectAsPojo]]
+.DataBaseObject are those classes that extends Entities as well. These are the JDBC variant of DataBaseObjects.
+[source,cypher,role=concept,requiresConcepts="jpa2:Entity"]
+----
+MATCH
+  (jdbcDbo:Class)-[:EXTENDS]->(:Jpa:Entity)
+WHERE
+  jdbcDbo.name STARTS WITH "Jdbc"
+MERGE
+  (p:Pattern {
+    name: "DataBaseObject",
+    variant: "POJO"})
+MERGE
+  (jdbcDbo)-[:REPRESENTS]->(p)
+RETURN
+  p.name as patternName, count(jdbcDbo) as count
+----
+
+=== WebController
+
+[[pattern:WebController]]
+.WebController are those classes that represent the database tables as JPA Entities.
+[source,cypher,role=concept,requiresConcepts="jpa2:Entity"]
+----
+MATCH
+  (entity:Jpa:Entity)
+MERGE
+  (p:Pattern {name: "DataBaseObject"})
+MERGE
+  (entity)-[:REPRESENTS]->(p)
+RETURN
+  p.name as patternName, count(entity) as count
+----

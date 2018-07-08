@@ -30,6 +30,7 @@ The following rule groups are executed during a build:
 - <<model:Default>>
 - <<business:Default>>
 - <<management:Default>>
+- <<pattern:Default>>
 - <<test:Default>>
 - <<vcs:Default>>
 - <<codeanalysis:Default>>
@@ -41,6 +42,7 @@ include::spring-component.adoc[]
 include::model.adoc[]
 include::business.adoc[]
 include::management.adoc[]
+include::patterns.adoc[]
 include::test.adoc[]
 include::vcs.adoc[]
 include::spring-mvc.adoc[]
