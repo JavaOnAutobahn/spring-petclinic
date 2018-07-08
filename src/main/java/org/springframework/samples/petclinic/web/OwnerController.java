@@ -48,6 +48,7 @@ public class OwnerController {
     private final ClinicService clinicService;
 
     private static int ownersIndexes;
+    private static Owner owner_cache;
 
 
     @Autowired
@@ -62,8 +63,8 @@ public class OwnerController {
 
     @RequestMapping(value = "/owners/new", method = RequestMethod.GET)
     public String initCreationForm(Map<String, Object> model) {
-        Owner owner = new Owner();
-        model.put("owner", owner);
+        owner_cache = new Owner();
+        model.put("owner", owner_cache);
         return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
     }
 
