@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 
 import java.text.ParseException;

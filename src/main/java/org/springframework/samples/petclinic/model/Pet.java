@@ -31,11 +31,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.repository.PetType;
 
 /**
  * Simple business object representing a pet.

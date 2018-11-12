@@ -21,7 +21,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
 
 /**
