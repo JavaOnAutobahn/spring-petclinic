@@ -12,7 +12,7 @@
     <properties>
 
         <!-- Generic properties -->
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -43,6 +43,11 @@
 
         <!-- jQAssistant and asciidoctor -->
         <jqassistant.version>1.3.0</jqassistant.version>
+
+        <!-- evosuite -->
+        <evosuite.version></evosuite.version>
+        <evosuite.targetFolder>src/test/evosuite</evosuite.targetFolder>
+
     </properties>
 
     <dependencyManagement>
@@ -269,7 +274,23 @@
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.evosuite</groupId>
+            <artifactId>evosuite-standalone-runtime</artifactId>
+            <version>1.0.6</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>EvoSuite</id>
+            <name>EvoSuite Repository</name>
+            <url>http://www.evosuite.org/m2</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <!-- Maven plugin versions are mentioned in order to guarantee the build reproducibility in the long term -->
     <build>
@@ -307,6 +328,12 @@
                     <includes>
                         <include>**/*Tests.java</include>
                     </includes>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.evosuite.runtime.InitializingListener</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
             <plugin>
@@ -463,6 +490,50 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.evosuite.plugins</groupId>
+                <artifactId>evosuite-maven-plugin</artifactId>
+                <version>1.0.6</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${evosuite.targetFolder}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>randoop</groupId>
+                <artifactId>randoop-maven-plugin</artifactId>
+                <version>3.1.5</version>
+                <configuration>
+                    <packageName>my.base.package</packageName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-tests</id>
+                        <goals>
+                            <goal>gentests</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
     <reporting>
