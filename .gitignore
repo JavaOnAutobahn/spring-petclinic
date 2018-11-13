@@ -1,6 +1,7 @@
 target/*
 .settings/*
 .classpath
+.evosuite
 .project
 .idea
 *.iml
