@@ -282,6 +282,19 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <scope>test</scope>
+            <version>1.0.11</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <version>1.0.11</version>
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
 
     <pluginRepositories>
@@ -512,24 +525,6 @@
                                 <source>${evosuite.targetFolder}</source>
                             </sources>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>randoop</groupId>
-                <artifactId>randoop-maven-plugin</artifactId>
-                <version>3.1.5</version>
-                <configuration>
-                    <packageName>my.base.package</packageName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-tests</id>
-                        <goals>
-                            <goal>gentests</goal>
-                        </goals>
-                        <phase>generate-test-sources</phase>
                     </execution>
                 </executions>
             </plugin>
