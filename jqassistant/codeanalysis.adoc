@@ -31,3 +31,12 @@ SET
 RETURN
     count(t) as TypesProvidedWithLastLineNumber
 ----
+
+=== Efforts
+This list shows the overall efforts that were invested in the software measured by the developers's contributions.
+It also shows the latest data from production use.
+
+[%header,format=csv]
+|===
+include::../data/efforts.csv[]
+|===
