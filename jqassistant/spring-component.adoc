@@ -21,7 +21,7 @@ The following GraphML reports are created:
 
 The application consists of the following components:
 
-[plantuml,class-diagram]
+[plantuml,class-diagram,svg]
 ....
 package UI <<Frame>> {
   class MyController
