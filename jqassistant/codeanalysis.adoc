@@ -1,5 +1,5 @@
 [[codeanalysis:Default]]
-[role=group,includesConcepts="codeanalysis:FindBugsCodeConnection,codeanalysis:TypeLastLineNumber"]
+[role=group,includesConcepts="codeanalysis:FindBugsCodeConnection,codeanalysis:TypeLastLineNumber,codeanalysis:AdditionalFindingsRecursive"]
 == Code Analysis
 
 === Concepts
@@ -40,3 +40,17 @@ It also shows the latest data from production use.
 |===
 include::../data/efforts.csv[]
 |===
+
+=== Additional Findings
+[[codeanalysis:AdditionalFindingsRecursive]]
+[source,cypher,role=concept]
+.Lists all recursive calls to the database. Is this a bug or a feature?
+----
+MATCH (c:Class)-[:DECLARES]->(m:Method),
+(m)-[:INVOKES]->(m),
+(m)-[i:INVOKES]->(m2:Method),
+(m2)<-[:DECLARES]-(dbClass)
+WHERE dbClass.name contains("Database")
+RETURN c.name, m.name, i.lineNumber, m2.name, dbClass.name
+----
+
