@@ -35,6 +35,7 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.repository.PetType;
 
 /**
@@ -46,6 +47,7 @@ import org.springframework.samples.petclinic.repository.PetType;
  */
 @Entity
 @Table(name = "pets")
+@BoundedContext("PetManagement")
 public class Pet extends NamedEntity {
 
     @Column(name = "birth_date")

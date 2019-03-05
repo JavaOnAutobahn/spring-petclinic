@@ -20,6 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.repository.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Repository;
  * @since 22.4.2006
  */
 @Repository
+@BoundedContext("PetManagement")
 public class JpaPetRepositoryImpl implements PetRepository {
 
     @PersistenceContext

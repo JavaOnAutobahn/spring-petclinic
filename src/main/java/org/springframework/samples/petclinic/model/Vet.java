@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -42,6 +43,7 @@ import org.springframework.beans.support.PropertyComparator;
  */
 @Entity
 @Table(name = "vets")
+@BoundedContext("Visits")
 public class Vet extends Person {
 
     @ManyToMany(fetch = FetchType.EAGER)

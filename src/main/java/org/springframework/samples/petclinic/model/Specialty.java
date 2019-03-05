@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.model;
 
 import org.springframework.samples.petclinic.architecture.ActualSubdomain;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,7 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "specialties")
-@ActualSubdomain("Vet")
+@BoundedContext("Visits")
 public class Specialty extends NamedEntity {
 
 }

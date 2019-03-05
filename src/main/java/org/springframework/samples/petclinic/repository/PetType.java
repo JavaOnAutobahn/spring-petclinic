@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.NamedEntity;
 
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "types")
+@BoundedContext("PetKnowledgebase")
 public class PetType extends NamedEntity {
 
 }

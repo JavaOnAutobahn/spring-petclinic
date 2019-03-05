@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,7 @@ import java.util.Map;
  * @author Michael Isvy
  */
 @Repository
+@BoundedContext("Visits")
 public class JdbcVisitRepositoryImpl implements VisitRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;

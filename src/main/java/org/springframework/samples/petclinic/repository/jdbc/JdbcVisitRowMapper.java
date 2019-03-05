@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.repository.jdbc;
 
 import org.joda.time.LocalDate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.Visit;
 
 import java.sql.ResultSet;
@@ -28,6 +29,7 @@ import java.util.Date;
  * {@link RowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties
  * of the {@link Visit} class.
  */
+@BoundedContext("Visits")
 class JdbcVisitRowMapper implements RowMapper<Visit> {
 
     @Override

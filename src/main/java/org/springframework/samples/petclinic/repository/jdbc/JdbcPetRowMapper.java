@@ -22,11 +22,13 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
  * {@link RowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties
  * of the {@link JdbcPet} class.
  */
+@BoundedContext("PetManagement")
 class JdbcPetRowMapper implements RowMapper<JdbcPet> {
 
     @Override

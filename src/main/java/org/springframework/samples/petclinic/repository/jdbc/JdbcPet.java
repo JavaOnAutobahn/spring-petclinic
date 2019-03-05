@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.architecture.Pattern;
 import org.springframework.samples.petclinic.model.Pet;
 
@@ -25,6 +26,7 @@ import org.springframework.samples.petclinic.model.Pet;
  * @author Juergen Hoeller
  */
 @Pattern("DatabaseObject")
+@BoundedContext("PetManagement")
 class JdbcPet extends Pet {
 
     private int typeId;

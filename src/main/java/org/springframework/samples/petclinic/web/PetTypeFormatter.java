@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.repository.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 
@@ -37,6 +38,7 @@ import org.springframework.samples.petclinic.service.ClinicService;
  * @author Juergen Hoeller
  * @author Michael Isvy
  */
+@BoundedContext("PetKnowledgebase")
 public class PetTypeFormatter implements Formatter<PetType> {
 
     private final ClinicService clinicService;

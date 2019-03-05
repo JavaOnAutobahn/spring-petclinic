@@ -44,7 +44,7 @@ import org.springframework.samples.petclinic.architecture.BoundedContext;
  */
 @Entity
 @Table(name = "owners")
-@BoundedContext("OwnerRegistration")
+@BoundedContext("PetManagement")
 public class Owner extends Person {
     @Column(name = "address")
     @NotEmpty

@@ -33,16 +33,15 @@ import org.springframework.samples.petclinic.architecture.ActualTechnicalAspect;
  *
  * @author Michael Isvy
  */
-@BoundedContext("Clinic")
 public interface ClinicService {
 
-    @BoundedContext("PetKnowledgeBase")
+    @BoundedContext("PetKnowledgebase")
     Collection<PetType> findPetTypes() throws DataAccessException;
 
-    @MixedBoundedContexts({"CustomerManagement", "VisitTracking"})
+    @MixedBoundedContexts({"Visits", "VisitTracking"})
     Owner findOwnerById(int id) throws DataAccessException;
 
-    @BoundedContext("PatientManagement")
+    @BoundedContext("PetManagement")
     @ActualTechnicalAspect("DataModel")
     Pet findPetById(int id) throws DataAccessException;
 

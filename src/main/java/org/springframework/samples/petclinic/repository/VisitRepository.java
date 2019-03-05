@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.repository;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Visit;
 
@@ -30,6 +31,7 @@ import org.springframework.samples.petclinic.model.Visit;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+@BoundedContext("Visits")
 public interface VisitRepository {
 
     /**

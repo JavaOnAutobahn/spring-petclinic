@@ -1,5 +1,5 @@
 [[business:Default]]
-[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency"]
+[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency,business:AlternativeModularization"]
 == Business
 
 This section describes the application from the business' perspective.
@@ -113,3 +113,22 @@ ORDER BY
   TechnicalAspect
 ----
 
+==== Alternative Modularization with Bounded Contexts
+This query prepares the scanned data for virtual reengineering activities.
+
+[[business:AlternativeModularization]]
+.Connects the values of `@BoundedContext` Java Annotation to the underlying classes.
+[source,cypher,role=concept]
+----
+MATCH
+   (a:Artifact { name: "spring-petclinic"})-[:CONTAINS*]->
+      (t:Type)-[:ANNOTATED_BY]->(annotation:Annotation)-[:OF_TYPE]->
+         (annotationType:Type { name: "BoundedContext"}),
+            (annotation)-[:HAS]->(v:Value)
+WHERE t.name <> "package-info"
+MERGE (ta:BoundedContext)<-[:BELONGS_TO]-(t)
+SET
+   ta.name = v.value
+RETURN DISTINCT v.value as BoundedContext, t.name as Type
+ORDER BY v.value, t.name
+----

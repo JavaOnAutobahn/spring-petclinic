@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
@@ -39,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Michael Isvy
  */
 @Controller
+@BoundedContext("Visits")
 public class VisitController {
 
     private final ClinicService clinicService;

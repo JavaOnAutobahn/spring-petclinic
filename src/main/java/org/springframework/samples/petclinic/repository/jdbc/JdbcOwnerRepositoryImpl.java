@@ -30,6 +30,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.repository.PetType;
@@ -49,6 +50,7 @@ import org.springframework.stereotype.Repository;
  * @author Mark Fisher
  */
 @Repository
+@BoundedContext("PetManagement")
 public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
