@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.model;
 
+import org.springframework.samples.petclinic.architecture.ActualSubdomain;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -25,6 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "specialties")
+@ActualSubdomain("Vet")
 public class Specialty extends NamedEntity {
 
 }

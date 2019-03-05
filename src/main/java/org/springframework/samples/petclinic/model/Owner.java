@@ -32,6 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -43,6 +44,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "owners")
+@BoundedContext("OwnerRegistration")
 public class Owner extends Person {
     @Column(name = "address")
     @NotEmpty

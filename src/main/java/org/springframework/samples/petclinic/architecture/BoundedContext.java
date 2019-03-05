@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.util;
+package org.springframework.samples.petclinic.architecture;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
