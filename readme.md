@@ -7,7 +7,7 @@ see https://github.com/buschmais/spring-petclinic for the forked version of the 
 # Prerequisites
 
 ## Minimum requirements
-* Oracle Java Development Kit with Version >=8 ([download](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
+* OpenJDK Java Development Kit with Version >=11 ([download](https://openjdk.java.net/install/))
 * Git ([download](https://git-scm.com/downloads))
 
 ## Optional
