@@ -27,9 +27,9 @@ The sample application itself is a simple demo for organizing visits of pet owne
 ## Downloading and running the `petclinic` web application
 First, we want to download the source code of the application with Git, build it with Maven (using `mvnw`) and running the embedded web application server `tomcat7`:
 ```
-	git clone https://github.com/JavaOnAutobahn/spring-petclinic.git
-	cd spring-petclinic
-	./mvnw tomcat7:run
+git clone https://github.com/JavaOnAutobahn/spring-petclinic.git
+cd spring-petclinic
+./mvnw tomcat7:run
 ```
 You can then access the `petclinic` web application with your browser here: http://localhost:9966/petclinic/
 
@@ -44,7 +44,7 @@ To shutdown the server, press `Ctrl` + `X` on the command line.
 
 After shuting down the web application server, you can start jQAssistant with this Maven command:
 ```
-	./mvnw jqassistant:server
+./mvnw jqassistant:server
 ```
 You should see the following on the command line:
 
