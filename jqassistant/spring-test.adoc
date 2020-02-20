@@ -4,7 +4,7 @@
 
 [[spring-test-web:Assert]]
 [source,cypher,role=concept]
-.Mark method "org.springframework.test.web.servlet.ResultActions#andExpect" as "Spring" and "Assert".
+.The method "org.springframework.test.web.servlet.ResultActions#andExpect" is used as an Assertion and labeled with "Spring" and "Assert".
 ----
 MATCH
   (assertType:Type)-[:DECLARES]->(assertMethod)

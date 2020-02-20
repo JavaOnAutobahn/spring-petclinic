@@ -6,7 +6,7 @@ This document defines concepts related to the Spring JMX Framework.
 
 [[spring-jmx:ManagedResource]]
 [source,cypher,role="concept"]
-.Labels all types annotated with "org.springframework.jmx.export.annotation.ManagedResource" with "Spring" and "ManagedResource".
+.Types annotated with "org.springframework.jmx.export.annotation.ManagedResource" are managed resourcess. They are labeled with "Spring" and "ManagedResource".
 ----
 MATCH
   (managedResource:Type)-[:ANNOTATED_BY]->()-[:OF_TYPE]->(annotationType:Type)

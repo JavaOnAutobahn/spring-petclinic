@@ -1,5 +1,5 @@
 [[model:Default]]
-[role=group,includesConstraints="model:JpaEntityInModelPackage"]
+[role=group,includesConstraints="model:*"]
 == JPA Model
 
 The following constraints are verified:

@@ -7,18 +7,14 @@ The following constraints are verified:
 
 * <<dependency:PackageCycles>>
 
-The following
-
 === Reports
 
 [[package:DependencyDiagram]]
-[source,cypher,role=concept,requiresConcepts="layer:LayerDependency",reportProperties="render=component-diagram"]
-.Creates a diagram about dependencies between layers.
+[source,cypher,role=concept,reportType="plantuml-component-diagram"]
+.Diagram about dependencies between packages.
 ----
 MATCH
-  (artifact:Artifact)-[:CONTAINS]->(package:Package)-[:CONTAINS]->(:Type)
-WHERE
-  artifact.type <> "test-jar"
+  (artifact:Main:Artifact)-[:CONTAINS]->(package:Package)-[:CONTAINS]->(:Type)
 OPTIONAL MATCH
   (package)-[dependsOn:DEPENDS_ON]->(:Package)
 RETURN

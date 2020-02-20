@@ -1,5 +1,5 @@
 [[business:Default]]
-[role=group,includesConcepts="business:Subdomain,business:SubdomainCrossfunctional,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency,business:AlternativeModularization"]
+[role=group,includesConcepts="business:*"]
 == Business
 
 This section describes the application from the business' perspective.
@@ -7,7 +7,7 @@ This section describes the application from the business' perspective.
 === Concepts
 
 ==== Subdomains
-The application consists of several business subdomains that can be identified by naming conventions.
+The application consists of several business and technical subdomains that can be identified by naming conventions.
 
 [[business:Subdomain]]
 .Creates predefined Subdomain nodes and connects them to all Type nodes via naming conventions.

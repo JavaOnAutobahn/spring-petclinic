@@ -4,7 +4,7 @@
 
 [[assertj:AssertMethod]]
 [source,cypher,role=concept]
-.Mark all assertThat methods of 'org.assertj.core.api.Assertions' with "AssertJ" and "Assert".
+.All `assertThat` methods of 'org.assertj.core.api.Assertions' are labeled with "AssertJ" and "Assert".
 ----
 MATCH
   (assertType:Type)-[:DECLARES]->(assertMethod)

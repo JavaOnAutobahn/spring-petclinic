@@ -1,0 +1,259 @@
+[[spring:Default]]
+[role=group,includesGroups="spring-boot:Strict",includesConstraints="spring:*,dependency:PackageCycles",includesConcepts="spring:*"]
+== Spring
+
+The following constraints are verified:
+
+- Default spring rules as provided by the https://github.com/buschmais/jqa-spring-plugin[jQAssistant Spring Plugin].
+  These cover allowed dependencies between Controllers, Services and Repositories
+- <<spring:ControllerMustBeLocatedInWebLayer>>
+- <<spring:ServiceMustBeLocatedInServiceLayer>>
+- <<spring:RepositoryMustBeLocatedInRepositoryLayer>>
+- <<spring:ImplementationDependencies>>
+- Package cycles
+
+The following GraphML reports are created:
+
+- <<spring:VirtualDependency.graphml>>
+
+=== Overview
+
+The application consists of the following components:
+
+[plantuml,class-diagram]
+....
+package UI <<Frame>> {
+  class MyController
+}
+
+package Logic <<Frame>> {
+  interface MyService
+  MyService <|-- MyServiceImpl
+}
+
+package Persistence <<Frame>> {
+  interface FooRepository
+  interface SpringDataFooRepository
+  FooRepository <|-- SpringDataFooRepository
+  FooRepository <|-- JpaFooRepositoryImpl
+  FooRepository <|-- JdbcFooRepositoryImpl
+}
+
+MyController --> MyService : uses
+MyServiceImpl --> FooRepository : uses
+
+hide members
+....
+
+* UI
+** Controller implementations
+* Logic
+** Service interfaces and implementations
+* Persistence
+** Repository interfaces and implementations
+*** Spring Data (interface declaration only)
+*** JPA
+*** JDBC
+
+=== Project Constraints
+
+The following sections describe restrictions on dependencies between these components.
+
+==== General
+
+[[spring:ImplementationDependencies]]
+[source,cypher,role=constraint,requiresConcepts="spring-component:AnnotatedInjectables"]
+.There must be no direct dependencies between Spring injectables, i.e. only dependencies to interfaces are allowed.
+----
+MATCH
+  (type:Spring:Injectable)-[:DECLARES]->(:Method)-[:INVOKES]->(:Method)<-[:DECLARES]-(otherType:Spring:Injectable)
+WHERE
+  type <> otherType
+  and not otherType:Interface
+RETURN DISTINCT
+  type as Dependent, otherType as InvalidDependency
+----
+
+==== UI
+
+The server side UI implementation is based on Spring MVC controllers:
+
+[source,java]
+.Example controller
+----
+@Controller
+@RequestMapping("/resource")
+public class MyController {
+
+    private final MyService service;
+
+    @Autowired
+    public MyController(MyService myService) {
+        this.myService = myService;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String get() {
+    }
+}
+----
+
+[[spring:ControllerMustBeLocatedInWebLayer]]
+[source,cypher,role=constraint,requiresConcepts="spring-component:Controller,layer:Layer"]
+.Controllers must be located in the layer named 'web'.
+----
+MATCH
+  (controller:Spring:Controller)
+WHERE NOT
+  (:Layer{name:"web"})-[:CONTAINS*]->(controller)
+RETURN
+  controller as Controller
+----
+
+==== Logic
+
+The business logic consists of services which are defined by interfaces and implemented by classes annotated with @Service:
+
+[source,java]
+.Example service interface
+----
+public interface MyService {
+    Collection<Foo> findFoos() throws DataAccessException;
+}
+----
+
+[source,java]
+.Example service implementation
+----
+@Service
+public class MyServiceImpl implements MyService {
+
+    private FooRepository fooRepository;
+
+    @Autowired
+    public ServiceImpl(FooRepository fooRepository) {
+        this.fooRepository = fooRepository;
+    }
+}
+----
+
+[[spring:ServiceMustBeLocatedInServiceLayer]]
+[source,cypher,role=constraint,requiresConcepts="spring-component:Service,layer:Layer"]
+.Services must be located in the layer named 'service'.
+----
+MATCH
+  (service:Spring:Service)
+WHERE NOT
+  (:Layer{name:"service"})-[:CONTAINS*]->(service)
+RETURN
+  service as Service
+----
+
+==== Persistence
+
+Repositories provide access to the database and are defined by interfaces (one per model element):
+
+[source,java]
+.Example repository interface
+----
+public interface FooRepository {
+    Collection<Foo> findFoos() throws DataAccessException;
+}
+----
+
+There are three options to provide or implement a repository:
+
+[source,java]
+.Example Spring Data repository
+----
+public interface SpringDataFooRepository extends FooRepository, Repository<Foo, Integer> {
+
+    @Override
+    @Query("SELECT foo FROM Foo ORDER BY foo.name")
+    List<Foo> findFoos() throws DataAccessException;
+}
+----
+
+[source,java]
+.Example JPA repository
+----
+@Repository
+public class JpaFooRepositoryImpl implements FooRepository {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Foo> findFoos() {
+        return this.em.createQuery("SELECT foo FROM Foo ORDER BY foo.name").getResultList();
+    }
+----
+
+[source,java]
+.Example JDBC repository
+----
+@Repository
+public class JdbcFooRepositoryImpl implements Repository {
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    public JdbcRepositoryImpl(DataSource dataSource) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Override
+    public List<Foo> findFoos() throws DataAccessException {
+        Map<String, Object> params = new HashMap<>();
+        return this.namedParameterJdbcTemplate.query(
+            "SELECT id, name FROM foo ORDER BY name",
+            params,
+            BeanPropertyRowMapper.newInstance(Foo.class));
+    }
+----
+
+[[spring:RepositoryMustBeLocatedInRepositoryLayer]]
+[source,cypher,role=constraint,requiresConcepts="spring-component:Repository,layer:Layer"]
+.Repositories must be located in the layer named 'repository'.
+----
+MATCH
+  (repository:Spring:Repository)
+WHERE NOT
+  (:Layer{name:"repository"})-[:CONTAINS*]->(repository)
+RETURN
+  repository as Repository
+----
+
+=== Default Constraints
+
+include::jQA:Rules[constraints="spring*:*"]
+
+=== Reports
+
+[[spring:ComponentDiagram]]
+[source,cypher,role=concept,requiresConcepts="spring-component:Component",reportType="plantuml-class-diagram"]
+.Actual usage dependencies between Spring components, i.e. controller, service and repository implementations.
+----
+MATCH
+  (componentPackage:Package)-[:CONTAINS]->(component:Spring:Component)
+OPTIONAL MATCH
+  (injectedTypePackage:Package)-[:CONTAINS]->(injectedType:Type),
+  (component)-[declares:DECLARES]->(field:Field)-[:OF_TYPE]->(injectedType),
+  (dependency:Component)-[extends:EXTENDS|IMPLEMENTS*]->(injectedType)
+RETURN
+  *
+----
+
+[[spring:SequenceDiagram]]
+[source,cypher,role=concept,requiresConcepts="spring-component:Component,java:VirtualInvokes",reportType="plantuml-sequence-diagram"]
+.Sequence diagram demonstrating sequence between Spring Components.
+----
+MATCH
+  (:Spring:Component{name:"VisitController"})-[:DECLARES]->(method{name:"processNewVisitForm"}),
+  (:Spring:Component)-[:DECLARES]->(other:Method),
+  sequence=shortestPath((method)-[:INVOKES|VIRTUAL_INVOKES*]->(other))
+RETURN
+  sequence
+----
+

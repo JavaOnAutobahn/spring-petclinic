@@ -1,5 +1,5 @@
 [[management:Default]]
-[role=group,includesConcepts="management:ManagedResources"]
+[role=group,includesConcepts="management:*"]
 == Management
 
 The following reports are created:
@@ -9,7 +9,7 @@ The following reports are created:
 === Reports
 
 [[management:ManagedResources]]
-.All managed resources including their attributes and operations.
+.Managed resources including their attributes and operations.
 [source,cypher,role=concept,requiresConcepts="spring-jmx:ManagedResource,spring-jmx:ManagedAttribute,spring-jmx:ManagedOperation"]
 ----
 MATCH

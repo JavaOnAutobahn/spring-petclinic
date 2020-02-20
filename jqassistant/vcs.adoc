@@ -1,5 +1,5 @@
 [[vcs:Default]]
-[role=group,includesConstraints="vcs:BranchesMustBeSynchronized",includesConcepts="vcs:CurrentBranch,vcs:GitToJavaConnection"]
+[role=group,includesConstraints="vcs:*",includesConcepts="vcs:*"]
 == Version Control System
 
 The rules defined in this document refer to Git.
@@ -7,7 +7,7 @@ The rules defined in this document refer to Git.
 === Concepts
 [[vcs:CurrentBranch]]
 [source,cypher,role=concept]
-.Labels the current branch with `Current`.
+.The currently checked-out local branch is labeled with `Current`.
 ----
 MATCH
   (repository:Repository)-[:HAS_BRANCH]->(branch:Git:Branch)
@@ -48,15 +48,17 @@ MATCH
 WHERE
   master.name = "heads/master"
   and branch.name in [
-    "heads/violations",
+    "heads/jqa-violations",
     "heads/jqa-remote",
-    "heads/testimpactanalysis"
+    "heads/jqa-testimpactanalysis"
   ]
 WITH
   master, branch
 MATCH
   (master)-[:HAS_HEAD]->(masterHead:Commit),
   (branch)-[:HAS_HEAD]->(branchHead:Commit)
+WHERE
+  branchHead <> masterHead
 OPTIONAL MATCH
   p=shortestPath((branchHead)-[:HAS_PARENT*]->(masterHead))
 WITH
@@ -66,3 +68,4 @@ WHERE
 RETURN
   branch.name as OutdatedBranch
 ----
+

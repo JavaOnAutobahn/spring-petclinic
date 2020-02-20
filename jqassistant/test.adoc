@@ -1,25 +1,11 @@
 [[test:Default]]
-[role=group,includesConstraints="test:TestMethodWithoutAssertion,junit4:IgnoreWithoutMessage"]
+[role=group,includesConstraints="test:*,junit:IgnoreWithoutMessage"]
 == Tests
 
 The following test rules apply:
 
 - <<test:TestMethodWithoutAssertion>>
 - All @Ignore annotations must provide a message
-
-The following reports are created:
-
-- <<test:TestAffectedByLastCommit>>
-
-=== Annotations
-When depending on infrastructure or framework functions, additional annotations are needed for a test case.
-
-[source,java]
-.Example for annotating tests
-----
-include::../src/test/java/org/springframework/samples/petclinic/service/ClinicServiceJpaTests.java[tag=test_annotations]
-----
-<1> The `@ActiveProfiles` annotation is only needed when you are using data from the database.
 
 === Constraints
 

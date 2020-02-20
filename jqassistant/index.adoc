@@ -7,26 +7,29 @@
 
 This document describes coding rules for the Spring PetClinic.
 
-NOTE: The rules defined in this and all included documents are for demonstration purposes only and work in progress. For
-rendering of embedded diagrams http://www.graphviz.org[Graphviz] needs to be installed and available via the system path.
+NOTE: The rules defined in this and all included documents are for demonstration purposes only and should be considered as work in progress.
+Feedback and enhancements are welcome, you're invited to create an issue or pull-request on https://github.com/buschmais/spring-petclinic[GitHub].
 
-TIP: GraphML reports may be viewed using http://www.yworks.com/en/products/yfiles/yed/[yEd]. After opening a file you
-should apply a layout, e.g. menu:Layout[Hierarchical].
+NOTE: For rendering of embedded diagrams http://www.graphviz.org[Graphviz] needs to be installed and available via the system path.
+
+TIP: GraphML reports may be viewed using http://www.yworks.com/en/products/yfiles/yed/[yEd].
+After opening a file you should apply a layout, e.g. menu:Layout[Hierarchical].
 
 == Summary
 
-include::jQA:Summary[]
+// Includes a summary about all executed constraints and concepts including their status and description
+include::jQA:Summary[constraints="*", concepts="*"]
 
 == CI Build
 
 The following rule groups are executed during a build:
 
 [[default]]
-[role=group,includesGroups="maven:Default,package:Default,layer:Default,spring-component:Default,model:Default,business:Default,management:Default,test:Default,vcs:Default,codeanalysis:Default"]
+[role=group,includesGroups="maven:Default,package:Default,layer:Default,spring:Default,model:Default,business:Default,management:Default,test:Default,vcs:Default,codeanalysis:Default"]
 - <<maven:Default>>
 - <<package:Default>>
 - <<layer:Default>>
-- <<spring-component:Default>>
+- <<spring:Default>>
 - <<model:Default>>
 - <<business:Default>>
 - <<management:Default>>
@@ -37,14 +40,12 @@ The following rule groups are executed during a build:
 include::maven.adoc[]
 include::package.adoc[]
 include::layer.adoc[]
-include::spring-component.adoc[]
+include::spring.adoc[]
 include::model.adoc[]
 include::business.adoc[]
 include::management.adoc[]
 include::test.adoc[]
 include::vcs.adoc[]
-include::spring-mvc.adoc[]
-include::spring-data.adoc[]
 include::spring-jmx.adoc[]
 include::spring-test.adoc[]
 include::assertj.adoc[]
