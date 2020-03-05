@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/JavaOnAutobahn/spring-petclinic.svg?branch=master)](https://travis-ci.org/JavaOnAutobahn/spring-petclinic)
 
 
-# Einführung
+## Einführung
 
 Dies ist die Java-basierte Beispielanwendung `petclinic` des Spring Frameworks, um die Verwendung von [jQAssistant](https://jqassistant.org/) und [Neo4j](https://neo4j.com/) zu demonstrieren.
 Es ist hier bereits alles eingebaut, um mit jQAssistant und Neo4j herumzuspielen.
@@ -14,35 +14,26 @@ Die Domäne der Anwendung ist die Organisation von Tierbesitzern (owners) bei Ti
 Die folgende Anleitung hilft Dir, mit jQAssistant zu beginnen, indem sie den Installationsprozess Schritt für Schritt beschreiben.
 
 
-# Voraussetzungen
+## Voraussetzungen
 
 
-## Mindestanforderungen
+### Mindestanforderungen
 
 * OpenJDK Java Development Kit mit Version >=8 ([Download](https://openjdk.java.net/install/))
 * Git ([Download](https://git-scm.com/downloads))
 
 
-## Recommended
+### Empfohlen
 
 * Um gut aussehende Diagramme zu erzeugen, installiere GraphViz ([Download](https://www.graphviz.org/download/))
 
 
-# Installieren und Kennenlernen der Beispielanwendung
-
-
-## Optional: Verständnis der Anwendung PetClinic
-
-* Überfliege die Präsentation auf SpeakerDeck: https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application
-* Klick dich durch die laufende Online-Webanwendung hier: https://stagemonitor-demo.isys-software.de/
-
-
-# Herunterladen und Ausführen der Webanwendung
+## Herunterladen und Bauen der Webanwendung
 
 _Hinweis: Vorzugsweise verwendest du für diese Aufgaben die Git-Bash-Kommandozeile oder eine beliebige Unix-ähnliche Shell._
 
 
-## Lokaler Download
+### Lokaler Download
 
 Lade den Quellcode der Anwendung mit Git herunter und baue ihn mit Maven (unter Verwendung von `mvnw`):
 ```
@@ -52,6 +43,31 @@ cd spring-petclinic
 ```
 
 Wenn dieser Build erfolgreich war, hast du alle notwendigen Abhängigkeiten lokal auf deinen Rechner heruntergeladen.
+
+
+### Lokale Ausführung von jQAssistant / Neo4j
+
+Starte jQAssistant mit diesem Maven-Befehl:
+```
+./mvnw jqassistant:server
+```
+Auf der Befehlszeile solltest du in etwa Folgendes sehen:
+
+![](docs/screenshots/mvn_jqassistant_start.png)
+
+Hier kannst du dann über das Neo4j Browser-Frontend auf die gescannten Daten zugreifen: http://localhost:7474
+
+So sollte es nach dem Anklicken der Schaltfläche in der linken oberen Ecke aussehen (das Symbol könnte etwas abweichen):
+
+![](docs/screenshots/neo4j_start.png)
+
+**Damit ist die Installation abgeschlossen!**
+
+
+## Optional: Kennenlernen der Beispielanwendung
+
+* Überfliege die Präsentation auf SpeakerDeck: https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application
+* Klick dich durch die laufende Online-Webanwendung hier: https://stagemonitor-demo.isys-software.de/
 
 
 ## Optional: Lokale Ausführung der Anwendung
@@ -73,25 +89,7 @@ So sollte in etwa aussehen.:
 Um den Server herunterzufahren, drücke `Strg` + `X` oder `Strg` + `C` auf der Kommandozeile.
 
 
-# Lokale Ausführung von jQAssistant / Neo4j
-
-Starte jQAssistant mit diesem Maven-Befehl:
-```
-./mvnw jqassistant:server
-```
-Auf der Befehlszeile solltest du in etwa Folgendes sehen:
-
-![](docs/screenshots/mvn_jqassistant_start.png)
-
-Hier kannst du dann über das Neo4j Browser-Frontend auf die gescannten Daten zugreifen: http://localhost:7474
-
-So sollte es nach dem Anklicken der Schaltfläche in der linken oberen Ecke aussehen (das Symbol könnte etwas abweichen):
-
-![](docs/screenshots/neo4j_start.png)
-
-Damit ist die Installation abgeschlossen!
-
-# Optional: Nächste Schritte
+## Optional: Nächste Schritte
 
 Als nächstes kannst du auf die verschiedenen Buttons in der Schublade (links) klicken, um die gescannten Softwaredaten zu untersuchen.
 
