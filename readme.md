@@ -1,5 +1,4 @@
 # REFUCTORED Spring PetClinic Sample Application 
-see https://github.com/buschmais/spring-petclinic for the forked version of the original
 
 [![Build Status](https://travis-ci.org/JavaOnAutobahn/spring-petclinic.svg?branch=master)](https://travis-ci.org/JavaOnAutobahn/spring-petclinic)
 
