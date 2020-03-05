@@ -89,7 +89,9 @@ This is what it should look like after clicking the button in the upper left cor
 
 ![](docs/screenshots/neo4j_start.png)
 
-# Next steps
+If this works, you've installed the jQAssistant/Neo4j sample application successfully!
+
+# Optional: Next steps
 
 Next, you can click on the various labels in the drawer to explore the scanned software data. You can also use the Neo4j guide for jQAssistant (beta) by executing the following command
 ```
