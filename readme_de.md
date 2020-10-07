@@ -67,7 +67,6 @@ So sollte es nach dem Anklicken der Schaltfläche in der linken oberen Ecke auss
 ## Optional: Kennenlernen der Beispielanwendung
 
 * Überfliege die Präsentation auf SpeakerDeck: https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application
-* Klick dich durch die laufende Online-Webanwendung hier: https://stagemonitor-demo.isys-software.de/
 
 
 ## Optional: Lokale Ausführung der Anwendung
