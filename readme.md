@@ -67,7 +67,6 @@ This is what it should look like after clicking the button in the upper left cor
 ## Optional: Understanding the Spring Petclinic application
 
 * Fly through the presentation on SpeakerDeck: https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application
-* Click through the running online web application here: https://stagemonitor-demo.isys-software.de/
 
 
 ## Optional: Running the application locally
