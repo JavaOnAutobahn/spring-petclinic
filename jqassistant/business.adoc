@@ -6,6 +6,19 @@ This section describes the application from the business' perspective.
 
 === Concepts
 
+==== Domain
+The domain of the application is a pet clinic.
+
+[[business:Domain]]
+.Mark all source code files that belong to the domain.
+----
+MATCH (t:Type)
+WHERE t.fqn starts with "org.springframework.samples.petclinic"
+SET t:Business:Domain
+SET t.domain = "Pet Clinic"
+RETURN COUNT(t)
+----
+
 ==== Subdomains
 The application consists of several business and technical subdomains that can be identified by naming conventions.
 
@@ -25,7 +38,7 @@ UNWIND [
 AS properties
 MERGE (s:Business:Subdomain{name:properties.name})
 WITH s
-    MATCH (t:Type)<-[:CONTAINS*]-(:Project)
+    MATCH (t:Type:Domain)
         WHERE t.name CONTAINS s.name
     MERGE (t)-[:BELONGS_TO]->(s)
 RETURN s.name as Subdomain, COUNT(t) as Types
@@ -37,14 +50,14 @@ Some types are not specific to a subdomain, but are there for crossfunctional as
 .Mark all types for the current Project that are crossfunctional.
 [source,cypher,role=concept,requiresConcepts="business:Subdomain"]
 ----
-MATCH (t:Type)<-[:CONTAINS*]-(:Project)
+MATCH (t:Type:Domain)
 WHERE NOT (t)-[:BELONGS_TO]->(:Business:Subdomain)
 MERGE (s:Business:Subdomain {name: "crossfunctional"})
 MERGE (s)<-[:BELONGS_TO]-(t)
 RETURN s.name as CrossfunctionalSubdomain, count(t) as Types
 ----
 
-==== Crossfunctional Aspects
+==== Dependencyies between subdomains
 
 There are dependencies between business sub domains.
 
@@ -80,7 +93,7 @@ The application consists of several business sub domains that can be identified 
 .Creates information about technical aspects using package naming conventions.
 [source,cypher,role=concept]
 ----
-MATCH (p:Package)-[:CONTAINS]->(t:Type)<-[:CONTAINS*]-(:Project)
+MATCH (p:Package)-[:CONTAINS]->(t:Type:Domain)
 WITH t, p.name as packageName 
 MERGE (ta:Business:TechnicalAspect {name: packageName})
 MERGE (ta)<-[:IS_A]-(t)
