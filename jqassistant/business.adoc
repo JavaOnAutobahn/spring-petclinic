@@ -126,7 +126,7 @@ MATCH
          (annotationType:Type { name: "BoundedContext"}),
             (annotation)-[:HAS]->(v:Value)
 WHERE t.name <> "package-info"
-MERGE (ta:BoundedContext)<-[:BELONGS_TO]-(t)
+MERGE (ta:BoundedContext)<-[:IS_WITHIN]-(t)
 SET
    ta.name = v.value
 RETURN DISTINCT v.value as BoundedContext, t.name as Type
