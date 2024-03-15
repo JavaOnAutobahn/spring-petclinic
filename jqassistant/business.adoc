@@ -1,5 +1,5 @@
 [[business:Default]]
-[role=group,includesConcepts="business:*"]
+[role=group,includesConcepts="business:Domain,business:Subdomain,business:BusinessDependency,business:TechnicalAspects,business:TechnicalAspectsDependency,business:AlternativeModularization"]
 == Business
 
 This section describes the application from the business' perspective.
@@ -11,6 +11,7 @@ The domain of the application is a pet clinic.
 
 [[business:Domain]]
 .Mark all source code files that belong to the domain.
+[source,cypher,role=concept]
 ----
 MATCH (t:Type)
 WHERE t.fqn starts with "org.springframework.samples.petclinic"
@@ -44,31 +45,16 @@ WITH s
 RETURN s.name as Subdomain, COUNT(t) as Types
 ----
 
-==== Crossfunctional Aspects
-Some types are not specific to a subdomain, but are there for crossfunctional aspects.
-[[business:SubdomainCrossfunctional]]
-.Mark all types for the current Project that are crossfunctional.
-[source,cypher,role=concept,requiresConcepts="business:Subdomain"]
-----
-MATCH (t:Type:Domain)
-WHERE NOT (t)-[:BELONGS_TO]->(:Business:Subdomain)
-MERGE (s:Business:Subdomain {name: "crossfunctional"})
-MERGE (s)<-[:BELONGS_TO]-(t)
-RETURN s.name as CrossfunctionalSubdomain, count(t) as Types
-----
-
-==== Dependencyies between subdomains
+==== Dependencies between subdomains
 
 There are dependencies between business sub domains.
 
 [[business:BusinessDependency]]
 .Creates DEPENDS_ON relations between two subdomains if there are Java type dependencies between them.
-[source,cypher,role=concept,requiresConcepts="business:SubdomainCrossfunctional"]
+[source,cypher,role=concept]
 ----
 MATCH
-  (t1:Type)-[:BELONGS_TO]->(s1:Business:Subdomain),
-  (t2:Type)-[:BELONGS_TO]->(s2:Business:Subdomain),
-  (t1)-[d:DEPENDS_ON]->(t2)
+  (s1:Business:Subdomain)<-[:BELONGS_TO]-(t1:Type:Domain)-[d:DEPENDS_ON]->(t2:Type:Domain)-[:BELONGS_TO]->(s2:Business:Subdomain)
 WHERE
   s1 <> s2
 WITH
@@ -106,7 +92,7 @@ There are dependencies between business technical aspects.
 
 [[business:TechnicalAspectsDependency]]
 .Creates DEPENDS_ON relations between two subdomains if there are Java type dependencies between them.
-[source,cypher,role=concept,requiresConcepts="business:TechnicalAspects"]
+[source,cypher,role=concept]
 ----
 MATCH
   (t1:Type)-[:IS_A]->(ta1:Business:TechnicalAspect),
