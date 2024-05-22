@@ -1,8 +1,5 @@
 # REFUCTORED Spring PetClinic Sample Application 
 
-[![Build Status](https://travis-ci.org/JavaOnAutobahn/spring-petclinic.svg?branch=master)](https://travis-ci.org/JavaOnAutobahn/spring-petclinic)
-
-
 ## Introduction
 
 This is a Java-based sample application `petclinic` of the Spring Framework to demonstrate the usage of [jQAssistant](https://jqassistant.org/) and [Neo4j](https://neo4j.com/).
@@ -87,6 +84,14 @@ This is what it looks like:
 
 To shutdown the server, press `Ctrl` + `X` or `Ctrl` + `C` on the command line.
 
+### Hint for WSL2 users on Windows 11
+
+If you want to access the Neo4j browser in Windows 11, you have to switch to mirrored networking mode (configured via `.wslconfig` file in `%UserProfile%`):
+
+```
+[wsl2]
+networkingMode=mirrored
+```
 
 ## Optional: Next steps
 
