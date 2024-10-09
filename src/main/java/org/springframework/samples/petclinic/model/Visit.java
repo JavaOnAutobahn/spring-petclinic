@@ -28,7 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
- * Simple JavaBean domain object representing a visit.
+ * Simple JavaBeam domain object representing an appointment.
  *
  * @author Ken Krebs
  */

@@ -23,6 +23,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Simple JavaBean domain object representing an person.
  *
+ * Keiner weiß mehr, warum wir das gemacht haben damals.
+ *
  * @author Ken Krebs
  */
 @MappedSuperclass

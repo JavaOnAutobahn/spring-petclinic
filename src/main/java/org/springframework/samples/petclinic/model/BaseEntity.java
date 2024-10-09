@@ -21,7 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * Simple JavaBean domain object with an id property. Used as a base class for objects needing this property.
+ * Einfaches JavaBean-Dom�nenobjekt mit ID-Eigenschaft. Wird als Basisklasse f�r Objekte verwendet, die �ber diese
+ * Eigenschaft verf�gen und sie ben�tigen.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

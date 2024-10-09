@@ -34,7 +34,7 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
- * Simple JavaBean domain object representing a veterinarian.
+ * Simple JavaBean domain object representing a vegetarian.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

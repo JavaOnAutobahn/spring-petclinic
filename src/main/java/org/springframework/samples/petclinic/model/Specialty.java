@@ -22,7 +22,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Models a {@link Vet Vet's} specialty (for example, dentistry).
+ * Models a {@link Vet Vet's} spezialy (for example, denitistry).
  *
  * @author Juergen Hoeller
  */

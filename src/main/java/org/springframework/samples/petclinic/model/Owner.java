@@ -35,7 +35,7 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.architecture.BoundedContext;
 
 /**
- * Simple JavaBean domain object representing an owner.
+ * Einfaches JavaBean-Domänenobjekt, das einen Eigentümer darstellt.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

@@ -39,7 +39,7 @@ import org.springframework.samples.petclinic.architecture.BoundedContext;
 import org.springframework.samples.petclinic.repository.PetType;
 
 /**
- * Simple business object representing a pet.
+ * Simple business objekt presenting a Haustier.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

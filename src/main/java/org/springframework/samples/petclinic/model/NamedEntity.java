@@ -20,8 +20,8 @@ import javax.persistence.MappedSuperclass;
 
 
 /**
- * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as a base class for objects
- * needing these properties.
+ * Ein einfaches JavaBean-DomÃ¤nenobjekt fÃ¼gt eine Namenseigenschaft zu <code>BaseEntity</code> hinzu. Wird als Basis-
+ * klasse fÃ¼r Objekte verwendet, die diese Eigenschaften benÃ¶tigen.
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

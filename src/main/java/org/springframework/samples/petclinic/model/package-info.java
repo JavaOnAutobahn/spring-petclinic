@@ -1,5 +1,7 @@
 /**
  * The classes in this package represent PetClinic's business layer.
+ *
+ * CODE_CLEANING: Here you can find multiple encoding and spelling errors in the Java inline comments. Correct them!
  */
 @ActualTechnicalAspect("DataModel")
 @Pattern("DatabaseObject")
