@@ -24,6 +24,15 @@ import javax.persistence.Table;
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
  *
+ *
+ * A d d N
+ * t u i a
+ * e r e c
+ * m c   h
+ * l h   t
+ * o
+ * s
+ *
  * @author Juergen Hoeller
  */
 @Entity
