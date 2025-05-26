@@ -40,6 +40,8 @@ import org.springframework.samples.petclinic.repository.PetType;
 
 /**
  * Simple business object representing a pet.
+ * 
+ * Verlieben, verloren, vergessen, verzeih’n!
  *
  * @author Ken Krebs
  * @author Juergen Hoeller

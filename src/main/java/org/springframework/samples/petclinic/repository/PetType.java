@@ -22,6 +22,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * Atemlos durch die Nacht
+ * Bis ein neuer Tag erwacht
+ * Atemlos einfach raus
+ * Deine Augen ziehen mich aus
+ * 
  * @author Juergen Hoeller
  *         Can be Cat, Dog, Hamster...
  */
